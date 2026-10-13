@@ -1,0 +1,3 @@
+import {api} from "@/lib/server-api";import {SavedSearchList} from "@/components/SavedSearchList";import {ErrorState} from "@/components/ErrorState";
+export const metadata={title:"Saved Searches"};
+export default async function Saved(){try{const searches=await api.savedSearches();return <div className="content"><div className="eyebrow">Saved intelligence views</div><h1 className="page-title">Saved searches</h1><p className="subtitle">Reusable opportunity filters. Alert delivery is not enabled in this demo.</p><section className="panel spaced"><SavedSearchList initial={searches}/></section></div>}catch(error){return <div className="content"><h1 className="page-title">Saved searches</h1><ErrorState message={error instanceof Error?error.message:undefined}/></div>}}

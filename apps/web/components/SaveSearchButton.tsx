@@ -1,0 +1,5 @@
+"use client";
+import {useState} from "react";
+import {api} from "@/lib/api";
+
+export function SaveSearchButton({filters}:{filters:Record<string,string>}){const [open,setOpen]=useState(false);const [name,setName]=useState("");const [state,setState]=useState<"idle"|"saving"|"done"|"error">("idle");async function save(){if(name.trim().length<2)return;setState("saving");try{await api.saveSearch(name.trim(),filters);setState("done");setOpen(false)}catch{setState("error")}}return <div className="save-search">{open?<div className="inline-save"><input aria-label="Saved search name" placeholder="Search name" value={name} onChange={e=>setName(e.target.value)}/><button className="button" onClick={save} disabled={state==="saving"}>Save</button><button className="button ghost" onClick={()=>setOpen(false)}>Cancel</button></div>:<button className="button secondary" onClick={()=>setOpen(true)}>Save current view</button>}{state==="done"&&<span className="success">Search saved</span>}{state==="error"&&<span className="form-error">Could not save this search.</span>}</div>}

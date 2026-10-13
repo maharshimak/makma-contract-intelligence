@@ -1,0 +1,3 @@
+"use client";
+import {useState} from "react";import Link from "next/link";import {api} from "@/lib/api";
+export function AddToPipelineButton({opportunityId}:{opportunityId:string}){const [state,setState]=useState<"idle"|"saving"|"done"|"exists"|"error">("idle");async function add(){setState("saving");try{await api.addToPipeline(opportunityId);setState("done")}catch(error){setState(error instanceof Error&&error.message.includes("already")?"exists":"error")}}if(state==="done"||state==="exists")return <Link className="button" href="/app/pipeline">{state==="done"?"Added · Open pipeline":"Already in pipeline"}</Link>;return <button className="button" onClick={add} disabled={state==="saving"}>{state==="saving"?"Adding…":"Add to pipeline"}</button>}

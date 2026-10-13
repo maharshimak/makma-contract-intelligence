@@ -1,0 +1,2 @@
+export default async function Future({params}:{params:Promise<{feature:string}>}){const {feature}=await params;return <div className="content"><div className="eyebrow">Product roadmap</div><h1 className="page-title">{feature[0].toUpperCase()+feature.slice(1)}</h1><div className="section" style={{marginTop:26,maxWidth:700}}><h2>Future capability</h2><p className="subtitle">This workspace is intentionally not represented as complete in V0. Revenue Radar, Opportunities, Buyers and Company Profile are the current functional product surface.</p></div></div>}
+
